@@ -1,0 +1,47 @@
+.tree {
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+  color: #ffffff; /* White text for dark background */
+  text-align: left;
+}
+
+
+.tree-node {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.node-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content spans the full width */
+  background-color: #333333;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+.node-icon-left {
+  margin-right: 10px; /* Space between left icon and text */
+}
+
+.node-name {
+  font-size: 14px;
+  flex: 1; /* Allow name to take up remaining space */
+}
+
+.node-icons-right {
+  display: flex;
+  gap: 4px; /* Space between right icons */
+}
+
+.node-icon {
+  cursor: pointer; /* Change cursor to pointer for interactivity */
+}
+
+.node-children {
+  margin-left: 15px;
+  padding-left: 10px;
+  border-left: 1px solid #555555;
+  margin-top: 5px;
+}
