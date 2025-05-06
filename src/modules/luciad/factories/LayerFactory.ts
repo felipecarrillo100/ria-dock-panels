@@ -10,6 +10,7 @@ import {WMSTileSetLayer} from '@luciad/ria/view/tileset/WMSTileSetLayer.js';
 import {type FeatureLayerConstructorOptions} from '@luciad/ria/view/feature/FeatureLayer.js';
 import {BingMapsTileSetModel} from '@luciad/ria/model/tileset/BingMapsTileSetModel.js';
 import {RasterTileSetLayer} from '@luciad/ria/view/tileset/RasterTileSetLayer.js';
+import {LayerGroup} from "@luciad/ria/view/LayerGroup.js";
 
 export class LayerFactory {
 
@@ -103,6 +104,22 @@ export class LayerFactory {
       const layer = new RasterTileSetLayer(bingModel, options);
       if (layer) {
         resolve(layer);
+      } else {
+        reject();
+      }
+    });
+  }
+
+  public static createLayerGroup(command: any) {
+    let options = { ...command };
+    return new Promise<LayerGroup>((resolve, reject) => {
+      if (typeof options === "undefined") {
+        options = {};
+      }
+      options.label = options.label ? options.label : "New group";
+      const layer = new LayerGroup(options);
+      if (layer) {
+        resolve(layer)
       } else {
         reject();
       }

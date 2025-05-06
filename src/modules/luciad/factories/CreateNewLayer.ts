@@ -10,6 +10,12 @@ import type {CreateLayerInfo} from "../interfaces/CreateLayerInfo.ts";
 
 export function CreateNewLayer(layerInfo: CreateLayerInfo) {
 
+  async function createLayerGroup(layerInfo: CreateLayerInfo) {
+    const layer = await LayerFactory.createLayerGroup(layerInfo.layer!);
+    (layer as any).restoreCommand = layerInfo;
+    return layer;
+  }
+
   async function createBingMapsLayer(layerInfo: CreateLayerInfo) {
     const model = await ModelFactory.createBingmapsModel(layerInfo.model);
     const layer = await LayerFactory.createBingmapsLayer(model, layerInfo.layer!);
@@ -39,6 +45,13 @@ export function CreateNewLayer(layerInfo: CreateLayerInfo) {
 
   return new Promise<Layer | LayerGroup>((resolve, reject) => {
     switch (layerInfo.layerType) {
+      case UILayerTypes.LayerGroup:
+      {
+        const layer = createLayerGroup(layerInfo);
+        if (layer) resolve(layer);
+        else reject();
+      }
+        break;
       case UILayerTypes.HSPCLayer:
       {
         const layer = createHSPCLayer(layerInfo);
