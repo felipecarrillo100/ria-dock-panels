@@ -9,6 +9,7 @@ import {UILayerTypes} from "../../modules/luciad/interfaces/UILayerTypes.ts";
 import {CreateNewLayer} from "../../modules/luciad/factories/CreateNewLayer.ts";
 import {Layer} from "@luciad/ria/view/Layer.js";
 import type {LayerGroup} from "@luciad/ria/view/LayerGroup.js";
+import {LayerUtils} from "../../modules/luciad/utils/LayerUtils.ts";
 
 export const LuciadMap: React.FC = () => {
     const divElement = useRef(null as null | HTMLDivElement);
@@ -79,7 +80,7 @@ export const LuciadMap: React.FC = () => {
             if (node instanceof Layer ) {
                 const layer = node as Layer | LayerGroup;
                 if (layer instanceof Layer ) {
-                    if (newCommand.parameters.autoZoom && layer.bounds) nativeMap.current.mapNavigator.fit({bounds: layer.bounds, animate: true});
+                    LayerUtils.zoomToLayer(nativeMap.current, layer);
                 }
             }
         }
@@ -153,7 +154,7 @@ const PoitCloudCommand = {
             "url": "https://sampleservices.luciad.com/ogc/3dtiles/marseille-lidar/tileset.json"
         },
         "layer": {
-            "label": "Mrseille-Lidar",
+            "label": "Marseille-Lidar",
             parentId: null as string | null
         },
         "autoZoom": true

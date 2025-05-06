@@ -8,6 +8,7 @@ import type {Handle} from "@luciad/ria/util/Evented.js";
 import {LayerTreeVisitor} from "@luciad/ria/view/LayerTreeVisitor.js";
 import type {Layer} from "@luciad/ria/view/Layer.js";
 import type {LayerGroup} from "@luciad/ria/view/LayerGroup.js";
+import {LayerUtils} from "../../modules/luciad/utils/LayerUtils.ts";
 
 
 interface Handles {
@@ -58,7 +59,8 @@ export const LayerTreeView: React.FC = () => {
             id: layerTree.id,
             label: layerTree.label,
             visible: layerTree.visible,
-            children: []
+            children: [],
+            type: "LayerGroup"
         };
 
         const layerTreeVisitor: LayerTreeVisitor = {
@@ -117,7 +119,7 @@ const TreeNodeComponent: React.FC<{ node: LayerTreeStatic }> = ({ node }) => {
         if (mainMap) {
             const realNode = mainMap.layerTree.findLayerById(node.id);
             if (realNode) {
-                if (realNode.bounds) mainMap.mapNavigator.fit({bounds: realNode.bounds, animate: true});
+                LayerUtils.zoomToLayer(mainMap, realNode);
             }
         }
     }

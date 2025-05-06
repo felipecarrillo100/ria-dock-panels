@@ -43,7 +43,7 @@ export const DefaultLayout:  SerializedDockview = {
                                     "panel-1",
                                     "panel-2"
                                 ],
-                                "activeView": "panel-2",
+                                "activeView": "panel-1",
                                 "id": "2"
                             },
                             "size": 540
@@ -71,12 +71,11 @@ export const DefaultLayout:  SerializedDockview = {
     },
     "panels": {
         "panel-map": {"id": "panel-map", "contentComponent": "main-map-panel", tabComponent: 'no-close', "title": "Map"},
-        "panel-1": {"id": "panel-1", "contentComponent": "projection-panel", "title": "Map projection"},
-        "panel-2": {"id": "panel-2", "contentComponent": "my-panel", "title": "Second Panel"},
+        "panel-1": {"id": "panel-1", "contentComponent": "my-panel", "title": "Layers"},
+        "panel-2": {"id": "panel-2", "contentComponent": "projection-panel", "title": "Map Settings"},
         "panel-time": {"id": "panel-time", "contentComponent": "time-panel", "title": "Time Control"},
-
         "panel-5": {"id": "panel-5", "contentComponent": "movie-panel", "title": "Video"},
 
     },
-    "activeGroup": "1"
+    "activeGroup": "2"
 }
