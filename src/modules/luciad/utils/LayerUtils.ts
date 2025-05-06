@@ -3,6 +3,6 @@ import type {WebGLMap} from "@luciad/ria/view/WebGLMap.js";
 
 export class LayerUtils {
     public static zoomToLayer(map: WebGLMap, layer: Layer) {
-        if (layer.bounds) map.mapNavigator.fit({bounds: layer.bounds, animate: true}).catch();
+        if (layer.bounds) map.mapNavigator.fit({bounds: layer.bounds, animate: true}).catch(()=>{});
     }
 }

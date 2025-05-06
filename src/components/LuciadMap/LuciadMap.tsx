@@ -5,11 +5,16 @@ import "./LuciadMap.scss";
 import {useComService} from "../../providers/ComServiceProvider.tsx";
 import {UIActions} from "../../interfaces/UIActions.ts";
 import type {UICommand} from "../../interfaces/UICommand.ts";
-import {UILayerTypes} from "../../modules/luciad/interfaces/UILayerTypes.ts";
 import {CreateNewLayer} from "../../modules/luciad/factories/CreateNewLayer.ts";
 import {Layer} from "@luciad/ria/view/Layer.js";
 import type {LayerGroup} from "@luciad/ria/view/LayerGroup.js";
 import {LayerUtils} from "../../modules/luciad/utils/LayerUtils.ts";
+import {
+    LayerGroupCommand,
+    MeshCommand,
+    PoitCloudCommand,
+    WMSCommand
+} from "../../modules/luciad/commands/CommandLibrary.ts";
 
 export const LuciadMap: React.FC = () => {
     const divElement = useRef(null as null | HTMLDivElement);
@@ -38,7 +43,6 @@ export const LuciadMap: React.FC = () => {
     }, []);
 
     const initialize = async () => {
-        await createAnyLayer(BingmapsCommand);
         await createAnyLayer(WMSCommand);
         const layerGroup = await createAnyLayer(LayerGroupCommand);
 
@@ -90,73 +94,3 @@ export const LuciadMap: React.FC = () => {
     return (<div className="LuciadMap" ref={divElement}></div>)
 }
 
-const LayerGroupCommand = {
-    action: UIActions.CreateAnyLayer,
-    "parameters": {
-        "layerType": UILayerTypes.LayerGroup,
-        "layer": {
-            "label": "Marseille",
-        },
-        "autoZoom": true
-    }
-};
-
-const BingmapsCommand = {
-    action: UIActions.CreateAnyLayer,
-    "parameters": {
-        "layerType": UILayerTypes.BingmapsLayer,
-        "model": {
-            "imagerySet": "Aerial",
-            token: "AugjqbGwtwHP0n0fUtpZqptdgkixBt5NXpfSzxb7q-6ATmbk-Vs4QnqiW6fhaV-i"
-        },
-        "layer": {
-            "label": "Bingmaps",
-        },
-        "autoZoom": true
-    }
-};
-
-const WMSCommand = {
-    action: UIActions.CreateAnyLayer,
-    "parameters": {
-        "layerType": UILayerTypes.WMSLayer,
-        model: {
-            url: "https://sampleservices.luciad.com/wms",
-            layers: [{layer: "4ceea49c-3e7c-4e2d-973d-c608fb2fb07e"}]
-        },
-        layer: {
-            label: "WMS Layer",
-        },
-        "autoZoom": true
-    }
-}
-
-const MeshCommand = {
-    action: UIActions.CreateAnyLayer,
-    "parameters": {
-        "layerType": UILayerTypes.OGC3DTILES,
-        "model": {
-            "url": "https://sampleservices.luciad.com/ogc/3dtiles/marseille-mesh/tileset.json"
-        },
-        "layer": {
-            "label": "Marseille-Mesh",
-            parentId: null as string | null
-        },
-        "autoZoom": true
-    }
-} ;
-
-const PoitCloudCommand = {
-    action: UIActions.CreateAnyLayer,
-    "parameters": {
-        "layerType": UILayerTypes.OGC3DTILES,
-        "model": {
-            "url": "https://sampleservices.luciad.com/ogc/3dtiles/marseille-lidar/tileset.json"
-        },
-        "layer": {
-            "label": "Marseille-Lidar",
-            parentId: null as string | null
-        },
-        "autoZoom": true
-    }
-};
